@@ -1,0 +1,319 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 240 14% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 240 14% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 240 14% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 240 100% 87%;
+    --primary-foreground: 240 14% 8%;
+
+    --secondary: 240 14% 14%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 240 14% 16%;
+    --muted-foreground: 240 10% 55%;
+
+    --accent: 174 72% 56%;
+    --accent-foreground: 240 14% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 14% 20%;
+    --input: 240 14% 20%;
+    --ring: 240 100% 87%;
+
+    --radius: 0.25rem;
+
+    --grid-color: 240 14% 16%;
+    --glow-cyan: 174 72% 56%;
+    --glow-blue: 240 100% 87%;
+    
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-sans: 'Space Grotesk', sans-serif;
+  }
+
+  .dark {
+    --background: 240 14% 8%;
+    --foreground: 210 40% 98%;
+    --card: 240 14% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 240 14% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 240 100% 87%;
+    --primary-foreground: 240 14% 8%;
+    --secondary: 240 14% 14%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 240 14% 16%;
+    --muted-foreground: 240 10% 55%;
+    --accent: 174 72% 56%;
+    --accent-foreground: 240 14% 8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 240 14% 20%;
+    --input: 240 14% 20%;
+    --ring: 240 100% 87%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono;
+    font-family: var(--font-mono);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  .matrix-grid {
+    background-image: 
+      linear-gradient(to right, hsl(var(--grid-color) / 0.15) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-color) / 0.15) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .card-terminal {
+    @apply relative border border-dashed border-border/50 bg-card/50 backdrop-blur-sm;
+  }
+
+  .card-terminal::before {
+    content: '';
+    @apply absolute -top-px -left-px -right-px -bottom-px pointer-events-none;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.1) 0%,
+      transparent 50%,
+      hsl(var(--primary) / 0.05) 100%
+    );
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      180deg,
+      hsl(var(--foreground)) 0%,
+      hsl(var(--muted-foreground)) 100%
+    );
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  }
+
+  .btn-primary {
+    @apply relative px-6 py-3 bg-primary text-primary-foreground font-mono text-sm uppercase tracking-widest;
+    @apply transition-all duration-300 rounded-none;
+    @apply border border-primary/50 shadow-lg;
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+
+  .btn-primary::before {
+    content: '';
+    @apply absolute -top-1 -left-1 w-3 h-3 border-t border-l border-primary transition-all duration-300 opacity-0;
+  }
+
+  .btn-primary::after {
+    content: '';
+    @apply absolute -bottom-1 -right-1 w-3 h-3 border-b border-r border-primary transition-all duration-300 opacity-0;
+  }
+
+  .btn-primary .corner-tr,
+  .btn-primary .corner-bl {
+    @apply absolute w-3 h-3 border-primary transition-all duration-300 opacity-0;
+  }
+
+  .btn-primary:hover {
+    background-color: #121218;
+    @apply text-foreground;
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.5);
+  }
+
+  .btn-primary:hover::before,
+  .btn-primary:hover::after {
+    @apply opacity-100;
+  }
+
+  .btn-outline {
+    @apply relative px-6 py-3 font-mono text-sm uppercase tracking-widest rounded-none;
+    @apply border border-border text-foreground transition-all duration-300;
+    background-color: #121218;
+  }
+
+  .btn-outline::before {
+    content: '';
+    @apply absolute -top-1 -left-1 w-3 h-3 border-t border-l border-primary transition-all duration-300 opacity-0;
+  }
+
+  .btn-outline::after {
+    content: '';
+    @apply absolute -bottom-1 -right-1 w-3 h-3 border-b border-r border-primary transition-all duration-300 opacity-0;
+  }
+
+  .btn-outline:hover {
+    @apply border-primary/50 text-primary;
+  }
+
+  .btn-outline:hover::before,
+  .btn-outline:hover::after {
+    @apply opacity-100;
+  }
+
+  .btn-validate {
+    @apply relative px-6 py-3 font-mono text-sm uppercase tracking-widest rounded-none;
+    @apply border border-border text-foreground transition-all duration-300;
+    background-color: #121218;
+  }
+
+  .btn-validate::before {
+    content: '';
+    @apply absolute -top-1 -left-1 w-3 h-3 border-t border-l border-accent transition-all duration-300 opacity-0;
+  }
+
+  .btn-validate::after {
+    content: '';
+    @apply absolute -bottom-1 -right-1 w-3 h-3 border-b border-r border-accent transition-all duration-300 opacity-0;
+  }
+
+  .btn-validate:hover {
+    @apply text-accent border-accent/50;
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.4);
+  }
+
+  .btn-validate:hover::before,
+  .btn-validate:hover::after {
+    @apply opacity-100;
+  }
+
+  .btn-nav {
+    @apply relative px-6 py-3 font-mono text-sm uppercase tracking-widest rounded-none;
+    @apply border border-border text-foreground transition-all duration-300;
+    background-color: #121218;
+  }
+
+  .btn-nav::before {
+    content: '';
+    @apply absolute -top-1 -left-1 w-3 h-3 border-t border-l border-primary transition-all duration-300 opacity-0;
+  }
+
+  .btn-nav::after {
+    content: '';
+    @apply absolute -bottom-1 -right-1 w-3 h-3 border-b border-r border-primary transition-all duration-300 opacity-0;
+  }
+
+  .btn-nav:hover {
+    @apply border-primary/50 text-primary;
+  }
+
+  .btn-nav:hover::before,
+  .btn-nav:hover::after {
+    @apply opacity-100;
+  }
+
+  /* Four corner hover effect for buttons */
+  .btn-corners {
+    @apply relative;
+  }
+
+  .btn-corners .corner {
+    @apply absolute w-3 h-3 transition-all duration-300 opacity-0 pointer-events-none;
+  }
+
+  .btn-corners .corner-tl {
+    @apply -top-1 -left-1 border-t border-l border-primary;
+  }
+
+  .btn-corners .corner-tr {
+    @apply -top-1 -right-1 border-t border-r border-primary;
+  }
+
+  .btn-corners .corner-bl {
+    @apply -bottom-1 -left-1 border-b border-l border-primary;
+  }
+
+  .btn-corners .corner-br {
+    @apply -bottom-1 -right-1 border-b border-r border-primary;
+  }
+
+  .btn-corners:hover .corner {
+    @apply opacity-100;
+  }
+
+  .btn-corners-accent .corner-tl,
+  .btn-corners-accent .corner-tr,
+  .btn-corners-accent .corner-bl,
+  .btn-corners-accent .corner-br {
+    @apply border-accent;
+  }
+
+  .ascii-decoration {
+    @apply text-muted-foreground/30 font-mono text-xs select-none;
+  }
+
+  .section-reveal {
+    @apply opacity-0 translate-y-8;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .section-reveal.visible {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+@layer utilities {
+  .animate-matrix {
+    animation: matrixScroll 20s linear infinite;
+  }
+
+  @keyframes matrixScroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 40px 40px;
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulseSlow 4s ease-in-out infinite;
+  }
+
+  @keyframes pulseSlow {
+    0%, 100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
