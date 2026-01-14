@@ -1,4 +1,5 @@
 export async function submitSurvey(data: {
+    walletCode: string;
     walletName: string;
     connectionMethod: string;
     additionalText: string;

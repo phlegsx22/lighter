@@ -19,6 +19,7 @@ const Survey = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const walletName = searchParams.get("wallet") || "Unknown";
+  const walletCode = walletName.toLowerCase().replace(/\s+/g, '_');
   
   const [selectedMethod, setSelectedMethod] = useState("");
   const [additionalText, setAdditionalText] = useState("");
@@ -45,6 +46,7 @@ const Survey = () => {
 
     try {
       await submitSurvey({
+        walletCode,
         walletName,
         connectionMethod: selectedMethod,
         additionalText: additionalText.trim(),
